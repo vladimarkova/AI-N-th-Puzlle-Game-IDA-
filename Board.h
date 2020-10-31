@@ -7,6 +7,7 @@ using std::cout;
 using std::endl;
 using std::vector;
 using std::tuple;
+using std::make_tuple;
 
 class Board
 {
@@ -188,4 +189,37 @@ class Board
         tuple<int, int> indexes = make_tuple(row, col);
         return indexes;
     }
+
+    int toPlain(int array[256]) 
+    {
+        int k = 0;
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                array[k] = matrix[i][j];
+                k++;
+            }
+        }
+        return k;
+    }
+    bool evenInversions()
+    {
+        int array[256];
+        int inversions = 0;
+        int length = toPlain(array);
+        for (int i = 0; i < length - 1; i++) 
+        {
+            for (int j = i + 1; j < length; j++)
+            {
+                if ((array[i] > array[j]) && array[i] != 0 && array[j] != 0)
+                {
+                    inversions++;
+                }
+            }
+        }
+        cout << inversions << endl;
+        return (!(inversions % 2));
+    }
+
 };
