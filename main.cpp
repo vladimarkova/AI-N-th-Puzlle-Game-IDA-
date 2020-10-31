@@ -1,10 +1,10 @@
 #include <iostream>
+#include "gameTest.h"
 using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl; 
-    int a = 5;
-    cout << a*2 << endl;
+    gameTest();
+    
     return 0;
 }

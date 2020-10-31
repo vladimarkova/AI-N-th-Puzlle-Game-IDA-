@@ -20,6 +20,7 @@ class Board
         size = _size;
         rowOfZero = size - 1;
         colOfZero = size - 1;
+        matrix[rowOfZero][colOfZero] = 0;
     }
 
     int getSize() const
@@ -27,7 +28,7 @@ class Board
         return size;
     }
 
-    void read()
+    int read()
     {
         cout << "Enter number of blocks:" << endl;
 
@@ -56,10 +57,24 @@ class Board
             {
                 cin >> matrix[i][j];
             }
-            // cout << endl;
         }
+
+        matrix[rowOfZero][colOfZero] = 0;
+
+        return sqrt(number + 1);
     }
 
+    void print()
+    {
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                cout << matrix[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
     // make goalRow and goalCol work with different positions
     int heuristic() const
     {
@@ -76,7 +91,7 @@ class Board
         }
         return sum;
     }
-    // make goalRow and goalCol work with different positions
+
     bool operator==(const Board& other) const
     {
         if (size != other.size)
@@ -94,6 +109,36 @@ class Board
             }
         }
         return true;
+    }
+
+    void makeEqual(const Board& other)
+    {
+        size = other.size;
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                matrix[i][j] = other.matrix[i][j];
+            }
+        }
+    }
+
+    // make it work for different positions of zero 
+    void makeGoal(int posOfZero, int _size)
+    {
+        int number = 1;
+        size = _size;
+        rowOfZero = posOfZero / size;
+        colOfZero = posOfZero % size;
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                matrix[i][j] = number;
+                number++;
+            }
+        }
+        matrix[rowOfZero][colOfZero] = 0;
     }
 
     vector<Board> neighbours() const

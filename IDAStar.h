@@ -19,7 +19,7 @@ public:
         int f = g + board.heuristic();
         if (f > threshold) 
             return f;
-        if (board == goal) 
+        if (board == goal)
             return FOUND;
         int min = INF;
         vector<Board> neighbours = board.neighbours();
@@ -51,5 +51,16 @@ public:
                 return INF;                               
             threshold = temp;
         }
+    }
+
+    void setStart(const Board& _start)
+    {
+        start.makeEqual(_start);
+    }
+
+    void setGoal(int posOfZero, int _size)
+    {
+        goal.makeGoal(posOfZero, _size);
+        goal.print();
     }
 };
