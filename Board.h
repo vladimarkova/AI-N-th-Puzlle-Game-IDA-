@@ -152,7 +152,30 @@ class Board
             neighbour.colOfZero--;
             neighbours.push_back(neighbour);
         }
+        if (colOfZero < size - 1)
+        {
+            Board neighbour = *this;
+            neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero][colOfZero + 1];
+            neighbour.matrix[rowOfZero][colOfZero + 1] = 0; 
+            neighbour.colOfZero++;
+            neighbours.push_back(neighbour); 
+        }
+        if (rowOfZero > 0)
+        {
+            Board neighbour = *this;
+            neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero - 1][colOfZero];
+            neighbour.matrix[rowOfZero - 1][colOfZero] = 0;
+            neighbour.rowOfZero--;
+            neighbours.push_back(neighbour); 
+        }
+        if (rowOfZero < size - 1)
+        {
+            Board neighbour = *this;
+            neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero + 1][colOfZero];
+            neighbour.matrix[rowOfZero + 1][colOfZero] = 0;
+            neighbour.rowOfZero++;
+            neighbours.push_back(neighbour); 
+        }
         return neighbours;
     }
-
 };
