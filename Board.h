@@ -1,10 +1,12 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <tuple>
 using std::cin;
 using std::cout;
 using std::endl;
 using std::vector;
+using std::tuple;
 
 class Board
 {
@@ -177,5 +179,13 @@ class Board
             neighbours.push_back(neighbour); 
         }
         return neighbours;
+    }
+
+    tuple<int, int> getIndexes(int position) 
+    {
+        int row = position / size;
+        int col = position % size;
+        tuple<int, int> indexes = make_tuple(row, col);
+        return indexes;
     }
 };
