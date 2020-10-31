@@ -203,7 +203,8 @@ class Board
         }
         return k;
     }
-    bool evenInversions()
+
+    int countInversions()
     {
         int array[256];
         int inversions = 0;
@@ -219,7 +220,24 @@ class Board
             }
         }
         cout << inversions << endl;
-        return (!(inversions % 2));
+        return inversions;
+    }
+    
+    bool solvable()
+    {
+        if ((size % 2))
+        {
+            return !(countInversions() % 2);
+        }
+        else
+        {
+            return ((countInversions() + rowOfZero) % 2);        
+        }
+    }
+
+    bool unsolvable()
+    {
+        return !(solvable());
     }
 
 };
