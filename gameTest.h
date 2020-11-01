@@ -1,6 +1,6 @@
 #include <iostream>
-// #include "IDAStar.h"
-#include "Board.h"
+#include "IDAStar.h"
+// #include "Board.h"
 using namespace std;
 
 void gameTest()
@@ -21,16 +21,16 @@ void gameTest()
             int posOfZero;
             cin >> posOfZero;
 
-            // IDAStar game;
-            // game.setStart(board);
-            // game.setGoal(posOfZero, size);
-            // game.play();
-
             Board test;
             test.makeGoal(posOfZero, size);
             test.print();
             cout << std::boolalpha << test.solvable() << endl; 
-            cout << test.countInversions() << endl;
+            cout << test.countInversions() << "GAME TEST: " << endl;
+
+            IDAStar game;
+            game.setStart(board);
+            game.setGoal(posOfZero, size);
+            cout << game.play() << endl;
 
             cout << "Enter 0 to stop the game or 1 to continue." << endl;
             cin >> response;
