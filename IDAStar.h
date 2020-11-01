@@ -37,7 +37,7 @@ public:
         return min;      
     }
 
-    int algorithm()
+    int play()
     {
         set<Board> visited;
         int threshold = start.heuristic();
@@ -47,7 +47,7 @@ public:
             int temp = dfs(start, 0, threshold, visited); 
             if(temp == FOUND)                                
                 return FOUND;                                             
-            if(temp== INF)                               
+            if(temp == INF)                               
                 return INF;                               
             threshold = temp;
         }
@@ -61,6 +61,6 @@ public:
     void setGoal(int posOfZero, int _size)
     {
         goal.makeGoal(posOfZero, _size);
-        goal.print();
+        // goal.print();
     }
 };

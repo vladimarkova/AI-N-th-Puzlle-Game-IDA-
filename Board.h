@@ -131,8 +131,16 @@ class Board
     {
         int number = 1;
         size = _size;
-        rowOfZero = posOfZero / size;
-        colOfZero = posOfZero % size;
+        if (posOfZero < 0 || posOfZero >= size*size)
+        {
+            rowOfZero = size - 1;
+            colOfZero = size - 1;
+        }
+        else
+        {
+            rowOfZero = posOfZero / size;
+            colOfZero = posOfZero % size;
+        }
         for (int i = 0; i < size; i++)
         {
             for (int j = 0; j < size; j++)
@@ -219,7 +227,7 @@ class Board
                 }
             }
         }
-        cout << inversions << endl;
+        // cout << inversions << endl;
         return inversions;
     }
     

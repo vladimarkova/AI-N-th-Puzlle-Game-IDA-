@@ -5,24 +5,27 @@ using namespace std;
 
 void gameTest()
 {
-    Board board, test;
+    Board board;
     int size = board.read();
-    /*while (!board.solvable())
+    while (board.unsolvable())
     {
         cout << "This board does not have a solution. Please try with another board." << endl;
         size = board.read();
-    }*/
-    board.print();
+    }
+    board.print(); 
 
     cout << "Enter position of zero in result:" << endl;
     int posOfZero;
     cin >> posOfZero;
 
-    test.makeGoal(posOfZero, size);
-    test.print();
-    // cout << test.evenInversions() << endl;
     // IDAStar game;
     // game.setStart(board);
     // game.setGoal(posOfZero, size);
+    // game.play();
 
+    Board test;
+    test.makeGoal(posOfZero, size);
+    test.print();
+    cout << std::boolalpha << test.solvable() << endl; 
+    cout << test.countInversions() << endl;
 }
