@@ -20,6 +20,7 @@ public:
         if (f > threshold) 
             return f;
         if (board == goal)
+            // cout << g << endl;
             return FOUND;
         int min = INF;
         vector<Board> neighbours = board.neighbours();

@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cmath>
+#include <cstring>
+#include <string.h>
 #include <vector>
 #include <tuple>
 using std::cin;
@@ -8,6 +10,7 @@ using std::endl;
 using std::vector;
 using std::tuple;
 using std::make_tuple;
+using std::string;
 
 class Board
 {
@@ -188,6 +191,26 @@ class Board
             neighbours.push_back(neighbour); 
         }
         return neighbours;
+    }
+
+    string direction()
+    {
+        if (colOfZero > 0)
+        {
+            return "left";
+        }
+        if (colOfZero < size - 1)
+        {
+            return "right";
+        }
+        if (rowOfZero > 0)
+        {
+            return "up";
+        }
+        if (rowOfZero < size - 1)
+        {
+            return "down";
+        }
     }
 
     tuple<int, int> getIndexes(int position) 
