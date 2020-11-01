@@ -35,7 +35,7 @@ public:
                     min=temp;
             }
         }
-        return min;      
+        return min;   
     }
 
     int play()
@@ -62,6 +62,6 @@ public:
     void setGoal(int posOfZero, int _size)
     {
         goal.makeGoal(posOfZero, _size);
-        // goal.print();
+        goal.print();
     }
 };

@@ -117,6 +117,25 @@ class Board
         return true;
     }
 
+    bool operator<(const Board& other) const
+    {
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                if (matrix[i][j] < other.matrix[i][j])
+                {
+                    return true;
+                }
+                 if (matrix[i][j] > other.matrix[i][j])
+                {
+                    return false;
+                }               
+            }
+        }
+        return false;
+    }
+
     void makeEqual(const Board& other)
     {
         size = other.size;
@@ -219,7 +238,7 @@ class Board
         int col = position % size;
         tuple<int, int> indexes = make_tuple(row, col);
         return indexes;
-    }
+    } 
 
     int toPlain(int array[256]) 
     {
