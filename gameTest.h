@@ -1,6 +1,7 @@
+#pragma once
 #include <iostream>
+#include "Board.h"
 #include "IDAStar.h"
-// #include "Board.h"
 using namespace std;
 
 void gameTest()
@@ -9,11 +10,13 @@ void gameTest()
     Board board;
     while(response != '0')
     {
-            int size = board.read();
+            board.read();
+            int size = board.getSize();
             while (board.unsolvable())
             {
                 cout << "This board does not have a solution. Please try with another board." << endl;
-                size = board.read();
+                board.read();
+                size = board.getSize();
             }
             board.print(); 
 
@@ -21,16 +24,22 @@ void gameTest()
             int posOfZero;
             cin >> posOfZero;
 
-            Board test;
-            test.makeGoal(posOfZero, size);
-            test.print();
-            cout << std::boolalpha << test.solvable() << endl; 
-            cout << test.countInversions() << "GAME TEST: " << endl;
-
             IDAStar game;
             game.setStart(board);
             game.setGoal(posOfZero, size);
-            cout << game.play() << endl;
+            vector<string> result = game.play();
+            if (result.size() > 0 && result[0] == "UNSOLVABLE")
+            {
+                cout << "This board is unsolvable!" << endl;
+            }
+            else
+            {
+                cout << result.size() << endl;
+                for (int i = 0; i < result.size(); i++)
+                {
+                    cout << result[i] << endl;
+                }
+            }
 
             cout << "Enter 0 to stop the game or 1 to continue." << endl;
             cin >> response;
