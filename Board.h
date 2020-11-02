@@ -1,16 +1,18 @@
+#pragma once
 #include <iostream>
 #include <cmath>
 #include <cstring>
-#include <string.h>
+#include <string>
 #include <vector>
 #include <tuple>
-using std::cin;
-using std::cout;
-using std::endl;
-using std::vector;
-using std::tuple;
-using std::make_tuple;
-using std::string;
+using namespace std;
+// using std::cin;
+// using std::cout;
+// using std::endl;
+// using std::vector;
+// using std::tuple;
+// using std::make_tuple;
+// using std::string;
 
 class Board
 {
@@ -24,9 +26,6 @@ class Board
     Board(int _size = 3)
     {
         size = _size;
-        rowOfZero = size - 1;
-        colOfZero = size - 1;
-        matrix[rowOfZero][colOfZero] = 0;
     }
 
     int getSize() const
@@ -34,13 +33,21 @@ class Board
         return size;
     }
 
-    int read()
+    void read()
     {
         cout << "Enter number of blocks:" << endl;
 
         int number, zeroPosition;
         cin >> number;
-        size = sqrt(number + 1);
+        
+        size = 0;
+        if(number == 8) {
+            size = 3;
+        }
+        else if (number == 15) {
+            size = 4;
+        }
+        // size = sqrt(number + 1);
 
         cout << "Enter position of 0: " << endl;
         cin >> zeroPosition;
@@ -66,8 +73,6 @@ class Board
         }
 
         matrix[rowOfZero][colOfZero] = 0;
-
-        return sqrt(number + 1);
     }
 
     void print()
@@ -174,42 +179,79 @@ class Board
         matrix[rowOfZero][colOfZero] = 0;
     }
 
-    vector<Board> neighbours() const
+    // vector<Board> neighbours() const
+    // {
+    //     vector<Board> neighbours;
+    //     if (colOfZero > 0)
+    //     {
+    //         Board neighbour = *this;
+    //         neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero][colOfZero - 1];
+    //         neighbour.matrix[rowOfZero][colOfZero - 1] = 0;
+    //         neighbour.colOfZero--;
+    //         neighbours.push_back(neighbour);
+    //     }
+    //     if (colOfZero < size - 1)
+    //     {
+    //         Board neighbour = *this;
+    //         neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero][colOfZero + 1];
+    //         neighbour.matrix[rowOfZero][colOfZero + 1] = 0; 
+    //         neighbour.colOfZero++;
+    //         neighbours.push_back(neighbour); 
+    //     }
+    //     if (rowOfZero > 0)
+    //     {
+    //         Board neighbour = *this;
+    //         neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero - 1][colOfZero];
+    //         neighbour.matrix[rowOfZero - 1][colOfZero] = 0;
+    //         neighbour.rowOfZero--;
+    //         neighbours.push_back(neighbour); 
+    //     }
+    //     if (rowOfZero < size - 1)
+    //     {
+    //         Board neighbour = *this;
+    //         neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero + 1][colOfZero];
+    //         neighbour.matrix[rowOfZero + 1][colOfZero] = 0;
+    //         neighbour.rowOfZero++;
+    //         neighbours.push_back(neighbour); 
+    //     }
+    //     return neighbours;
+    // }
+
+    Board createNeighbour(string step) const
     {
-        vector<Board> neighbours;
-        if (colOfZero > 0)
+        if (step == "left" && colOfZero > 0)
         {
             Board neighbour = *this;
             neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero][colOfZero - 1];
             neighbour.matrix[rowOfZero][colOfZero - 1] = 0;
             neighbour.colOfZero--;
-            neighbours.push_back(neighbour);
+            return neighbour;
         }
-        if (colOfZero < size - 1)
+        if (step == "right" && colOfZero < size - 1)
         {
             Board neighbour = *this;
             neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero][colOfZero + 1];
             neighbour.matrix[rowOfZero][colOfZero + 1] = 0; 
             neighbour.colOfZero++;
-            neighbours.push_back(neighbour); 
+            return neighbour;
         }
-        if (rowOfZero > 0)
+        if (step == "up" && rowOfZero > 0)
         {
             Board neighbour = *this;
             neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero - 1][colOfZero];
             neighbour.matrix[rowOfZero - 1][colOfZero] = 0;
             neighbour.rowOfZero--;
-            neighbours.push_back(neighbour); 
+            return neighbour;
         }
-        if (rowOfZero < size - 1)
+        if (step == "down" && rowOfZero < size - 1)
         {
             Board neighbour = *this;
             neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero + 1][colOfZero];
             neighbour.matrix[rowOfZero + 1][colOfZero] = 0;
             neighbour.rowOfZero++;
-            neighbours.push_back(neighbour); 
+            return neighbour;
         }
-        return neighbours;
+        return Board(0);
     }
 
     string direction()
