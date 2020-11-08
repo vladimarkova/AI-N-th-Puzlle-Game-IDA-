@@ -71,7 +71,6 @@ public:
         vector<string> steps;
         int threshold = start.heuristic();
 
-        int i = 0;
         while(true)         
         {
             visited.clear();
@@ -82,7 +81,6 @@ public:
             if(temp == INF)                               
                  return vector<string>(1, "UNSOLVABLE");                               
             threshold = temp;
-            i++;
         }
         // cout << "50\n";
         // return vector<string>(); 
