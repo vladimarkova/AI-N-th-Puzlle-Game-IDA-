@@ -26,6 +26,41 @@ class Board
     Board(int _size = 3)
     {
         size = _size;
+        rowOfZero = 42;
+        colOfZero = 42;
+        //cout << "rowOfZero: " << rowOfZero << "\n";
+    }
+
+    Board(const Board& other)
+    {
+        size = other.size;
+        rowOfZero = other.rowOfZero;
+        colOfZero = other.colOfZero;
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                matrix[i][j] = other.matrix[i][j];
+            }
+        }
+
+        //cout << "rowOfZero: " << rowOfZero << "\n";
+    }
+
+    Board& operator=(const Board& other)
+    {
+        size = other.size;
+        rowOfZero = other.rowOfZero;
+        colOfZero = other.colOfZero;
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                matrix[i][j] = other.matrix[i][j];
+            }
+        }
+        //cout << "rowOfZero: " << rowOfZero << "\n";
+        return *this;
     }
 
     int getSize() const
@@ -39,15 +74,8 @@ class Board
 
         int number, zeroPosition;
         cin >> number;
-        
-        size = 0;
-        if(number == 8) {
-            size = 3;
-        }
-        else if (number == 15) {
-            size = 4;
-        }
-        // size = sqrt(number + 1);
+
+        size = sqrt(number + 1);
 
         cout << "Enter position of 0: " << endl;
         cin >> zeroPosition;
@@ -61,6 +89,7 @@ class Board
             rowOfZero = zeroPosition / size;
             colOfZero = zeroPosition % size;
         }
+        //cout << "rowOfZero: " << rowOfZero << "\n";
 
         cout << "Enter board: " << endl;
 
@@ -75,7 +104,7 @@ class Board
         matrix[rowOfZero][colOfZero] = 0;
     }
 
-    void print()
+    void print() const
     {
         for (int i = 0; i < size; i++)
         {
@@ -85,7 +114,9 @@ class Board
             }
             cout << endl;
         }
+        cout << endl;
     }
+
     // make goalRow and goalCol work with different positions
     int heuristic() const
     {
@@ -132,7 +163,7 @@ class Board
                 {
                     return true;
                 }
-                 if (matrix[i][j] > other.matrix[i][j])
+                if (matrix[i][j] > other.matrix[i][j])
                 {
                     return false;
                 }               
@@ -141,17 +172,19 @@ class Board
         return false;
     }
 
-    void makeEqual(const Board& other)
-    {
-        size = other.size;
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < size; j++)
-            {
-                matrix[i][j] = other.matrix[i][j];
-            }
-        }
-    }
+    // void makeEqual(const Board& other)
+    // {
+    //     size = other.size;
+    //     for (int i = 0; i < size; i++)
+    //     {
+    //         for (int j = 0; j < size; j++)
+    //         {
+    //             matrix[i][j] = other.matrix[i][j];
+    //         }
+    //     }
+    //     rowOfZero = other.rowOfZero;
+    //     colOfZero = other.colOfZero;  
+    // }
 
     // make it work for different positions of zero 
     void makeGoal(int posOfZero, int _size)
@@ -177,45 +210,47 @@ class Board
             }
         }
         matrix[rowOfZero][colOfZero] = 0;
+
+        //cout << "rowOfZero: " << rowOfZero << "\n";
     }
 
-    // vector<Board> neighbours() const
-    // {
-    //     vector<Board> neighbours;
-    //     if (colOfZero > 0)
-    //     {
-    //         Board neighbour = *this;
-    //         neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero][colOfZero - 1];
-    //         neighbour.matrix[rowOfZero][colOfZero - 1] = 0;
-    //         neighbour.colOfZero--;
-    //         neighbours.push_back(neighbour);
-    //     }
-    //     if (colOfZero < size - 1)
-    //     {
-    //         Board neighbour = *this;
-    //         neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero][colOfZero + 1];
-    //         neighbour.matrix[rowOfZero][colOfZero + 1] = 0; 
-    //         neighbour.colOfZero++;
-    //         neighbours.push_back(neighbour); 
-    //     }
-    //     if (rowOfZero > 0)
-    //     {
-    //         Board neighbour = *this;
-    //         neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero - 1][colOfZero];
-    //         neighbour.matrix[rowOfZero - 1][colOfZero] = 0;
-    //         neighbour.rowOfZero--;
-    //         neighbours.push_back(neighbour); 
-    //     }
-    //     if (rowOfZero < size - 1)
-    //     {
-    //         Board neighbour = *this;
-    //         neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero + 1][colOfZero];
-    //         neighbour.matrix[rowOfZero + 1][colOfZero] = 0;
-    //         neighbour.rowOfZero++;
-    //         neighbours.push_back(neighbour); 
-    //     }
-    //     return neighbours;
-    // }
+    vector<Board> getNeighbours() const
+    {
+        vector<Board> neighbours;
+        if (colOfZero > 0)
+        {
+            Board neighbour = *this;
+            neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero][colOfZero - 1];
+            neighbour.matrix[rowOfZero][colOfZero - 1] = 0;
+            neighbour.colOfZero--;
+            neighbours.push_back(neighbour);
+        }
+        if (colOfZero < size - 1)
+        {
+            Board neighbour = *this;
+            neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero][colOfZero + 1];
+            neighbour.matrix[rowOfZero][colOfZero + 1] = 0;
+            neighbour.colOfZero++;
+            neighbours.push_back(neighbour);
+        }
+        if (rowOfZero > 0)
+        {
+            Board neighbour = *this;
+            neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero - 1][colOfZero];
+            neighbour.matrix[rowOfZero - 1][colOfZero] = 0;
+            neighbour.rowOfZero--;
+            neighbours.push_back(neighbour); 
+        }
+        if (rowOfZero < size - 1)
+        {
+            Board neighbour = *this;
+            neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero + 1][colOfZero];
+            neighbour.matrix[rowOfZero + 1][colOfZero] = 0;
+            neighbour.rowOfZero++;
+            neighbours.push_back(neighbour); 
+        }
+        return neighbours;
+    }
 
     Board createNeighbour(string step) const
     {
