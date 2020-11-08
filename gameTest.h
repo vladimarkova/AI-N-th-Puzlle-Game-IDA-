@@ -28,6 +28,7 @@ void gameTest()
             game.setStart(board);
             game.setGoal(posOfZero, size);
             vector<string> result = game.play();
+            // game.play();
             if (result.size() > 0 && result[0] == "UNSOLVABLE")
             {
                 cout << "This board is unsolvable!" << endl;
