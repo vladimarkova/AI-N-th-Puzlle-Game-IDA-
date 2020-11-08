@@ -39,7 +39,22 @@ void gameTest()
                 cout << result.size() << endl;
                 for (int i = 0; i < result.size(); i++)
                 {
-                    cout << result[i] << endl;
+                    if(result[i] == 'L')
+                    {
+                        cout << "left" << endl;
+                    }
+                    if(result[i] == 'R')
+                    {
+                        cout << "right" << endl;
+                    }
+                    if(result[i] == 'U')
+                    {
+                        cout << "up" << endl;
+                    }
+                    if(result[i] == 'D')
+                    {
+                        cout << "down" << endl;
+                    }
                 }
             }
 
