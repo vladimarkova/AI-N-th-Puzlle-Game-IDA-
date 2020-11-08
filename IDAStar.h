@@ -11,10 +11,11 @@ private:
     Board goal;
     const int FOUND = -1;
     const int INF = 1000000;
-    const vector<string> directions = {"left", "right", "up", "down"};
+    // const vector<string> directions = {"left", "right", "up", "down"};
+    const char dirs[4] = {'L', 'R', 'U', 'D'};
 
 public:
-    int dfs(const Board& board, int g, int threshold, set<Board>& visited, vector<string>& steps)
+    int dfs(const Board& board, int g, int threshold, set<Board>& visited, string& steps)
     {
         visited.insert(board);
         int f = g + board.heuristic();
@@ -23,12 +24,13 @@ public:
         if (board == goal)
             return FOUND;
         int min = INF;
-        for (int i = 0; i < directions.size(); i++)
+        // for (int i = 0; i < directions.size(); i++)
+        for (int i = 0; i < 4; i++)
         {
-            Board neighbour = board.createNeighbour(directions[i]);
+            Board neighbour = board.createNeighbour(dirs[i]);
             if (neighbour.getSize() != 0 && !visited.count(neighbour))
             {
-                steps.push_back(directions[i]);
+                steps.push_back(dirs[i]);
                 int temp = dfs(neighbour, g + 1, threshold, visited, steps);
                 if (temp == FOUND) 
                     return FOUND;
@@ -65,10 +67,10 @@ public:
     //     return min;   
     // }
 
-    vector<string> play() 
+    string play() 
     {
         set<Board> visited;
-        vector<string> steps;
+        string steps;
         int threshold = start.heuristic();
 
         while(true)         
@@ -79,7 +81,7 @@ public:
             if(temp == FOUND)
                  return steps;                                                       
             if(temp == INF)                               
-                 return vector<string>(1, "UNSOLVABLE");                               
+                 return "UNSOLVABLE";                               
             threshold = temp;
         }
         // cout << "50\n";

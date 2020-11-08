@@ -11,6 +11,7 @@ void gameTest()
     while(response != '0')
     {
             board.read();
+            cout << endl;
             int size = board.getSize();
             while (board.unsolvable())
             {
@@ -27,9 +28,9 @@ void gameTest()
             IDAStar game;
             game.setStart(board);
             game.setGoal(posOfZero, size);
-            vector<string> result = game.play();
+            string result = game.play();
             // game.play();
-            if (result.size() > 0 && result[0] == "UNSOLVABLE")
+            if (result.size() > 0 && result == "UNSOLVABLE")
             {
                 cout << "This board is unsolvable!" << endl;
             }
