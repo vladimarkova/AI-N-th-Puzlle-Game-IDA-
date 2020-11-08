@@ -252,9 +252,9 @@ class Board
         return neighbours;
     }
 
-    Board createNeighbour(string step) const
+    Board createNeighbour(char step) const
     {
-        if (step == "left" && colOfZero > 0)
+        if (step == 'L' && colOfZero > 0)
         {
             Board neighbour = *this;
             neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero][colOfZero - 1];
@@ -262,7 +262,7 @@ class Board
             neighbour.colOfZero--;
             return neighbour;
         }
-        if (step == "right" && colOfZero < size - 1)
+        if (step == 'R' && colOfZero < size - 1)
         {
             Board neighbour = *this;
             neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero][colOfZero + 1];
@@ -270,7 +270,7 @@ class Board
             neighbour.colOfZero++;
             return neighbour;
         }
-        if (step == "up" && rowOfZero > 0)
+        if (step == 'U' && rowOfZero > 0)
         {
             Board neighbour = *this;
             neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero - 1][colOfZero];
@@ -278,7 +278,7 @@ class Board
             neighbour.rowOfZero--;
             return neighbour;
         }
-        if (step == "down" && rowOfZero < size - 1)
+        if (step == 'D' && rowOfZero < size - 1)
         {
             Board neighbour = *this;
             neighbour.matrix[rowOfZero][colOfZero] = neighbour.matrix[rowOfZero + 1][colOfZero];
