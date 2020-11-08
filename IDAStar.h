@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <set>
+#include <unordered_set>
 #include "Board.h"
 using namespace std;
 
@@ -15,9 +15,9 @@ private:
     const char dirs[4] = {'L', 'R', 'U', 'D'};
 
 public:
-    int dfs(const Board& board, int g, int threshold, set<Board>& visited, string& steps)
+    int dfs(const Board& board, int g, int threshold, unordered_set<string>& visitedCodes, string& steps)
     {
-        visited.insert(board);
+        visitedCodes.insert(board.code());
         int f = g + board.heuristic();
         if (f > threshold) 
             return f;
@@ -28,10 +28,10 @@ public:
         for (int i = 0; i < 4; i++)
         {
             Board neighbour = board.createNeighbour(dirs[i]);
-            if (neighbour.getSize() != 0 && !visited.count(neighbour))
+            if (neighbour.getSize() != 0 && !visitedCodes.count(neighbour.code()))
             {
                 steps.push_back(dirs[i]);
-                int temp = dfs(neighbour, g + 1, threshold, visited, steps);
+                int temp = dfs(neighbour, g + 1, threshold, visitedCodes, steps);
                 if (temp == FOUND) 
                     return FOUND;
                 steps.pop_back();
@@ -69,15 +69,15 @@ public:
 
     string play() 
     {
-        set<Board> visited;
+        unordered_set<string> visitedCodes;
         string steps;
         int threshold = start.heuristic();
 
         while(true)         
         {
-            visited.clear();
+            visitedCodes.clear();
             steps.clear();
-            int temp = dfs(start, 0, threshold, visited, steps); 
+            int temp = dfs(start, 0, threshold, visitedCodes, steps); 
             if(temp == FOUND)
                  return steps;                                                       
             if(temp == INF)                               

@@ -289,24 +289,18 @@ class Board
         return Board(0);
     }
 
-    string direction()
+    string code() const
     {
-        if (colOfZero > 0)
+        string result;
+        result.push_back(size);
+        for (int i = 0; i < size; i++)
         {
-            return "left";
+            for (int j = 0; j < size; j++)
+            {
+                result.push_back(matrix[i][j]);
+            }
         }
-        if (colOfZero < size - 1)
-        {
-            return "right";
-        }
-        if (rowOfZero > 0)
-        {
-            return "up";
-        }
-        if (rowOfZero < size - 1)
-        {
-            return "down";
-        }
+        return result;
     }
 
     tuple<int, int> getIndexes(int position) 
