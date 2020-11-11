@@ -11,7 +11,6 @@ private:
     Board goal;
     const int FOUND = -1;
     const int INF = 1000000;
-    // const vector<string> directions = {"left", "right", "up", "down"};
     const char dirs[4] = {'L', 'R', 'U', 'D'};
 
 public:
@@ -24,7 +23,6 @@ public:
         if (board == goal)
             return FOUND;
         int min = INF;
-        // for (int i = 0; i < directions.size(); i++)
         for (int i = 0; i < 4; i++)
         {
             Board neighbour = board.createNeighbour(dirs[i]);
@@ -84,8 +82,6 @@ public:
                  return "UNSOLVABLE";                               
             threshold = temp;
         }
-        // cout << "50\n";
-        // return vector<string>(); 
     }
 
     // int play() 

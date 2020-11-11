@@ -5,6 +5,6 @@ using namespace std;
 int main()
 {
     gameTest();
-    
+
     return 0;
 }
