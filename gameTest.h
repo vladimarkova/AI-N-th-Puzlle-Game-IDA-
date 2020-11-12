@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <ctime>
 #include "Board.h"
 #include "IDAStar.h"
 using namespace std;
@@ -10,6 +11,8 @@ void gameTest()
     Board board;
     while(response != '0')
     {
+            time_t startTime;
+            time(&startTime);
             board.read();
             cout << endl;
             int size = board.getSize();
@@ -57,7 +60,7 @@ void gameTest()
                     }
                 }
             }
-
+            cout << "The time it took to finish the task in seconds: " << time(NULL) - startTime << 's' << endl;
             cout << "Enter 0 to stop the game or 1 to continue." << endl;
             cin >> response;
             if (response == '0')
