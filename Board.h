@@ -14,11 +14,14 @@ using namespace std;
 // using std::make_tuple;
 // using std::string;
 
+const int MAX_NUMBER = 25;
+const int MAX_PLAIN_ARRAY_SIZE = MAX_NUMBER * MAX_NUMBER;
+
 class Board
 {
     private:
     int size;
-    int matrix[16][16];
+    int matrix[MAX_NUMBER][MAX_NUMBER];
     int rowOfZero;
     int colOfZero;
 
@@ -311,7 +314,7 @@ class Board
         return indexes;
     } 
 
-    int toPlain(int array[256]) 
+    int toPlain(int array[MAX_PLAIN_ARRAY_SIZE]) 
     {
         int k = 0;
         for (int i = 0; i < size; i++)
@@ -327,7 +330,7 @@ class Board
 
     int countInversions()
     {
-        int array[256];
+        int array[MAX_PLAIN_ARRAY_SIZE];
         int inversions = 0;
         int length = toPlain(array);
         for (int i = 0; i < length - 1; i++) 

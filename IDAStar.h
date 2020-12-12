@@ -11,6 +11,7 @@ private:
     Board goal;
     const int FOUND = -1;
     const int INF = 1000000;
+    const int DIRECTIONS_NUMBER = 4;
     const char dirs[4] = {'L', 'R', 'U', 'D'};
 
 public:
@@ -23,7 +24,7 @@ public:
         if (board == goal)
             return FOUND;
         int min = INF;
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < DIRECTIONS_NUMBER; i++)
         {
             Board neighbour = board.createNeighbour(dirs[i]);
             if (neighbour.getSize() != 0 && !visitedCodes.count(neighbour.code()))
@@ -34,7 +35,7 @@ public:
                     return FOUND;
                 steps.pop_back();
                 if (temp < min) 
-                    min=temp;
+                    min = temp;
             }
         }
         return min;   
